@@ -31,7 +31,7 @@ const Login = () => {
       if (response.data.success) {
         localStorage.setItem("token", response.data.token);
         alert("Login/Register successful!");
-        navigate("/home");
+        navigate("/");
       } else {
         alert(response.data.message);
       }
