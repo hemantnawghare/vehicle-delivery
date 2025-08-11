@@ -12,13 +12,15 @@ const Login = () => {
     role: "client",
   });
 
+  const navigate = useNavigate(); // ✅ added
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const onLogin = async (event) => {
     event.preventDefault();
-    let newUrl = "http://localhost:4000"; // <-- set your API base URL here
+    let newUrl = "http://localhost:4000"; // API base URL
 
     if (isRegister) {
       newUrl += "/api/user/register";
@@ -30,8 +32,9 @@ const Login = () => {
       const response = await axios.post(newUrl, formData);
       if (response.data.success) {
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("isLoggedIn", "true"); // ✅ store login flag for ProtectedRoute
         alert("Login/Register successful!");
-        navigate("/");
+        navigate("/"); // ✅ will now work
       } else {
         alert(response.data.message);
       }
